@@ -1,0 +1,61 @@
+<html>
+    <head>
+<style>
+.h-flex {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+.v-flex {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+.w-100 {
+    width: 100%;
+}
+.w-75 {
+    width: 75%;
+}
+.m1 {
+    margin: 1%;
+}
+ul {
+    list-style: none;
+}
+p {
+    margin: 5px;
+}
+
+</style>
+    </head>
+    <body>
+        <div class="h-flex">
+            <h1>
+                Barnes<br>
+                Street<br>
+                Bash
+            </h1>
+            <ul>
+                <li>Donald Gee</li>
+                <li>Barnes Street Boys</li>
+                <li>Band 1</li>
+                <li>Band 2</li>
+            </ul>
+        </div>
+
+        <div class="v-flex">
+            <p>Nov 4th 2022</p>
+            <p>Address</p>
+            <p><a href="">Add to Calendar</a></p>
+        </div>
+
+        <form action="/action_page.php" class="v-flex">
+          <input class="w-100 m1" type="text" id="fname" name="fname" placeholder="First name">
+          <input class="w-100 m1" type="text" id="lname" name="lname" placeholder="Last name">
+          <input class="w-75" type="submit" value="Register">
+        </form>
+    </body>
+</html>
