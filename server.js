@@ -9,6 +9,18 @@ var db;
 const host = 'localhost';
 const port = 8000;
 
+
+// Certificate
+const privateKey = fs.readFileSync('/etc/letsencrypt/live/drop1.garrepi.dev/privkey.pem', 'utf8');
+const certificate = fs.readFileSync('/etc/letsencrypt/live/drop1.garrepi.dev/cert.pem', 'utf8');
+const ca = fs.readFileSync('/etc/letsencrypt/live/drop1.garrepi.dev/chain.pem', 'utf8');
+
+const credentials = {
+   key: privateKey,
+    cert: certificate,
+    ca: ca
+};
+
 MongoClient.connect(mongoUrl, function (err, client) {
     if (err) {
         throw err;
