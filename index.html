@@ -28,7 +28,13 @@ ul {
 p {
     margin: 5px;
 }
-
+h2 {
+    text-align: center;
+}
+.guests-grid {
+    display: grid;
+    grid-template-columns: repeat( auto-fit, minmax(100px, 1fr) );
+}
 </style>
     </head>
     <body>
@@ -58,28 +64,9 @@ p {
           <input class="w-75" type="submit" value="Register">
         </form>
 
-        <div id="guests">
+        <h2 id="guest-count" class="w-100"></h2>
+        <div id="guests" class="guests-grid">
         </div>
-    <script>
-        // fetch users
-        fetch("/guests")
-            .then(res => res.json())
-            .then(guests => {
-                console.log(guests);
-                const guestsDiv = document.getElementById("guests");
-                guests
-                    .map(guest => `${guest.fname} ${guest.lname}`)
-                    .forEach(name => {
-                        const p = document.createElement("p");
-                        const t = document.createTextNode(name);
-                        p.appendChild(t);
-
-                        guestsDiv.appendChild(p);
-                    });
-            })
-            .catch(err => {
-                console.log(err);
-            });
-    </script>
+        <script src="index.js"></script> 
     </body>
 </html>
