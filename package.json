@@ -1,0 +1,22 @@
+{
+  "name": "barnes-st-bash",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/johngarrett/barnes-st-bash.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/johngarrett/barnes-st-bash/issues"
+  },
+  "homepage": "https://github.com/johngarrett/barnes-st-bash#readme",
+  "dependencies": {
+    "mongodb": "^4.10.0"
+  }
+}
