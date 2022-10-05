@@ -57,16 +57,29 @@ p {
           <input class="w-100 m1" type="text" id="lname" name="lname" placeholder="Last name">
           <input class="w-75" type="submit" value="Register">
         </form>
-    <script>
-        console.log("Hello world");
-        let url = 'https://drop1.garrepi.dev';
 
-        fetch(url)
+        <div id="guests">
+        </div>
+    <script>
+        // fetch users
+        fetch("/guests")
             .then(res => res.json())
-            .then(json =>
-                  console.log('Checkout this JSON! ', json))
-            .catch(err => 
-                    console.error(err));
+            .then(guests => {
+                console.log(guests);
+                const guestsDiv = document.getElementById("guests");
+                guests
+                    .map(guest => `${guest.fname} ${guest.lname}`)
+                    .forEach(name => {
+                        const p = document.createElement("p");
+                        const t = document.createTextNode(name);
+                        p.appendChild(t);
+
+                        guestsDiv.appendChild(p);
+                    });
+            })
+            .catch(err => {
+                console.log(err);
+            });
     </script>
     </body>
 </html>
