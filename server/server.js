@@ -75,6 +75,17 @@ const register = (req, res) => {
     const cookies = parseCookies(req);
     console.log(cookies);
 
+    if (cookies['registered'] == "true") {
+        res.writeHead(500, {
+            "Set-Cookie": `registered=true`,
+            "Content-Type": `text/json`,
+            "Access-Control-Allow-Origin": "https://garrepi.dev"
+        });
+        res.end(JSON.stringify({
+            error: "User already registered" 
+        }));
+    }
+
     const guest = {
         ...queries,
         time: Date.now()
@@ -85,7 +96,7 @@ const register = (req, res) => {
             res.writeHead(200, {
                 "Set-Cookie": `registered=true`,
                 "Content-Type": `text/json`,
-                "Access-Control-Allow-Origin": "garrepi.dev"
+                "Access-Control-Allow-Origin": "https://garrepi.dev"
             });
             res.end(JSON.stringify({
                 success: true 
@@ -95,7 +106,7 @@ const register = (req, res) => {
             res.writeHead(500, {
                 "Set-Cookie": `registered=failed`,
                 "Content-Type": `text/json`,
-                "Access-Control-Allow-Origin": "garrepi.dev"
+                "Access-Control-Allow-Origin": "https://garrepi.dev"
             });
             res.end(JSON.stringify({
                 error: err

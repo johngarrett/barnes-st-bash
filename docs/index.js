@@ -44,7 +44,10 @@ function register() {
         "https://drop1.garrepi.dev/register?" + params,
         {
               method: 'POST',
-              credentials: 'include'
+              credentials: 'include',
+                headers: {
+                    Origin: "https://garrepi.dev/btsb"
+                }
         }
     )
     .then(res => {
