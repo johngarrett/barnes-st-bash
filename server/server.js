@@ -87,9 +87,9 @@ const register = (req, res) => {
                 "Content-Type": `text/json`,
                 "Access-Control-Allow-Origin": "*"
             });
-            res.end({
+            res.end(JSON.stringify({
                 success: true 
-            });
+            }));
         })
         .catch(err => {
             res.writeHead(500, {
@@ -97,9 +97,9 @@ const register = (req, res) => {
                 "Content-Type": `text/json`,
                 "Access-Control-Allow-Origin": "*"
             });
-            res.end({
+            res.end(JSON.stringify({
                 error: err
-            });
+            }));
         });
 }
 
