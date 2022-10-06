@@ -72,7 +72,7 @@ const parseCookies = (request) => {
 const register = (req, res) => {
     const reqUrl = url.parse(req.url);
     const queries = qs.parse(reqUrl.query);
-    const cookies = parseCookies(request);
+    const cookies = parseCookies(req);
     console.log(cookies);
 
     const guest = {
