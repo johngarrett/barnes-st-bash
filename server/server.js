@@ -2,6 +2,7 @@ const http = require('http');
 const https = require('https');
 const url = require('url');
 const fs = require('fs').promises;
+const _fs = require('fs');
 const qs = require('node:querystring');
 const { MongoClient } = require('mongodb');
 const mongoUrl = "mongodb://localhost:27017/bstb";
@@ -10,9 +11,9 @@ var db;
 
 
 // Certificate
-const privateKey = fs.readFileSync('/etc/letsencrypt/live/drop1.garrepi.dev/privkey.pem', 'utf8');
-const certificate = fs.readFileSync('/etc/letsencrypt/live/drop1.garrepi.dev/cert.pem', 'utf8');
-const ca = fs.readFileSync('/etc/letsencrypt/live/drop1.garrepi.dev/chain.pem', 'utf8');
+const privateKey = _fs.readFileSync('/etc/letsencrypt/live/drop1.garrepi.dev/privkey.pem', 'utf8');
+const certificate = _fs.readFileSync('/etc/letsencrypt/live/drop1.garrepi.dev/cert.pem', 'utf8');
+const ca = _fs.readFileSync('/etc/letsencrypt/live/drop1.garrepi.dev/chain.pem', 'utf8');
 
 const credentials = {
    key: privateKey,
