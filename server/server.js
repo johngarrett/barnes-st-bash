@@ -78,9 +78,11 @@ const register = (req, res) => {
     if (cookies['registered'] == "true") {
         console.log('already registered')
         res.writeHead(500, {
-            "Set-Cookie": `registered=true`,
+            "Set-Cookie": `registered=true; SameSite=None; Secure`,
             "Content-Type": `text/json`,
-            "Access-Control-Allow-Origin": "https://garrepi.dev"
+            "Access-Control-Allow-Headers": "Content-Type",
+            "Access-Control-Allow-Origin": "https://garrepi.dev",
+            "Access-Control-Allow-Credential": true 
         });
         res.end(JSON.stringify({
             error: "User already registered" 
@@ -95,9 +97,11 @@ const register = (req, res) => {
     db.collection('guests').insertOne(guest)
         .then(response => {
             res.writeHead(200, {
-                "Set-Cookie": `registered=true`,
+                "Set-Cookie": `registered=true; SameSite=None; Secure`,
                 "Content-Type": `text/json`,
-                "Access-Control-Allow-Origin": "https://garrepi.dev"
+                "Access-Control-Allow-Headers": "Content-Type",
+                "Access-Control-Allow-Origin": "https://garrepi.dev",
+                "Access-Control-Allow-Credential": true 
             });
             res.end(JSON.stringify({
                 success: true 
@@ -105,9 +109,11 @@ const register = (req, res) => {
         })
         .catch(err => {
             res.writeHead(500, {
-                "Set-Cookie": `registered=failed`,
+                "Set-Cookie": `registered=failed; SameSite=None; Secure`,
                 "Content-Type": `text/json`,
-                "Access-Control-Allow-Origin": "https://garrepi.dev"
+                "Access-Control-Allow-Headers": "Content-Type",
+                "Access-Control-Allow-Origin": "https://garrepi.dev",
+                "Access-Control-Allow-Credential": true 
             });
             res.end(JSON.stringify({
                 error: err

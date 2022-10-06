@@ -46,7 +46,10 @@ function register() {
               method: 'POST',
               credentials: 'include',
                 headers: {
-                    Origin: "https://garrepi.dev/btsb"
+                    Origin: "https://garrepi.dev/btsb",
+                    "Content-Type": "text/plain",
+                    "Access-Control-Request-Method": "POST",
+                    "Access-Control-Request-Headers": "Content-Type, Accept"
                 }
         }
     )
