@@ -82,7 +82,7 @@ const register = (req, res) => {
             "Content-Type": `text/json`,
             "Access-Control-Allow-Headers": "Content-Type",
             "Access-Control-Allow-Origin": "https://garrepi.dev",
-            "Access-Control-Allow-Credential": true 
+            "Access-Control-Allow-Credentials": true 
         });
         res.end(JSON.stringify({
             error: "User already registered" 
@@ -101,7 +101,7 @@ const register = (req, res) => {
                 "Content-Type": `text/json`,
                 "Access-Control-Allow-Headers": "Content-Type",
                 "Access-Control-Allow-Origin": "https://garrepi.dev",
-                "Access-Control-Allow-Credential": true 
+                "Access-Control-Allow-Credentials": true 
             });
             res.end(JSON.stringify({
                 success: true 
@@ -113,7 +113,7 @@ const register = (req, res) => {
                 "Content-Type": `text/json`,
                 "Access-Control-Allow-Headers": "Content-Type",
                 "Access-Control-Allow-Origin": "https://garrepi.dev",
-                "Access-Control-Allow-Credential": true 
+                "Access-Control-Allow-Credentials": true 
             });
             res.end(JSON.stringify({
                 error: err
