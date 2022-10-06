@@ -85,7 +85,7 @@ const register = (req, res) => {
             res.writeHead(200, {
                 "Set-Cookie": `registered=true`,
                 "Content-Type": `text/json`,
-                "Access-Control-Allow-Origin": "*"
+                "Access-Control-Allow-Origin": "garrepi.dev"
             });
             res.end(JSON.stringify({
                 success: true 
@@ -95,7 +95,7 @@ const register = (req, res) => {
             res.writeHead(500, {
                 "Set-Cookie": `registered=failed`,
                 "Content-Type": `text/json`,
-                "Access-Control-Allow-Origin": "*"
+                "Access-Control-Allow-Origin": "garrepi.dev"
             });
             res.end(JSON.stringify({
                 error: err
