@@ -1,4 +1,5 @@
 const http = require('http');
+const https = require('https');
 const url = require('url');
 const fs = require('fs').promises;
 const qs = require('node:querystring');
@@ -6,8 +7,6 @@ const { MongoClient } = require('mongodb');
 const mongoUrl = "mongodb://localhost:27017/bstb";
 var db;
 
-const host = 'localhost';
-const port = 8000;
 
 
 // Certificate
@@ -75,6 +74,7 @@ const indexjs = (req, res) => {
     fs.readFile(__dirname + "/index.js")
     .then(content => {
         res.setHeader("Content-Type", "application/javascript");
+        res.setHeader("Access-Control-Allow-Origin", "*");
         res.writeHead(200);
         res.end(content);
     })
@@ -89,6 +89,7 @@ const register = (req, res) => {
     const reqUrl = url.parse(req.url);
     //res.setHeader("Content-Type", "application/json");
     res.writeHead(200);
+    res.setHeader("Access-Control-Allow-Origin", "*");
     const queries = qs.parse(reqUrl.query);
     const guest = {
         ...queries,
@@ -109,6 +110,7 @@ const register = (req, res) => {
 // return json of all guests on GET
 const guests = (req, res) => {
     res.setHeader("Content-Type", "application/json");
+    res.setHeader("Access-Control-Allow-Origin", "*");
     const options = {
         // TODO: date
    //   sort: { date: 1 },
@@ -129,6 +131,7 @@ const guests = (req, res) => {
 // return plain text number of guest count
 const guest_count = (req, res) => {
     res.setHeader("Content-Type", "text/plain; charset=UTF-8");
+    res.setHeader("Access-Control-Allow-Origin", "*");
     db.collection("guests").count()
     .then(count => {
         console.log(count)
@@ -143,9 +146,13 @@ const guest_count = (req, res) => {
 };
 
 const startServer = () => {
-    const server = http.createServer(requestListener);
+        const httpServer = http.createServer(requestListener);
+        const httpsServer = https.createServer(credentials, requestListener);
 
-    server.listen(port, host, () => {
-        console.log(`Server is running on http://${host}:${port}`);
-    });
+        httpServer.listen(80, () => {
+            console.log("HTTP Server running on port 80");
+        });
+        httpsServer.listen(443, () => {
+                console.log("HTTPS Server running on port 443");
+            });
 };

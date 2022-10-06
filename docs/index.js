@@ -1,6 +1,6 @@
 
 // fetch guest count
-fetch("/guest-count")
+fetch("https://drop1.garrepi.dev/guest-count")
     .then(res => res.json())
     .then(count => {
         console.log(count);
@@ -12,7 +12,7 @@ fetch("/guest-count")
     });
 
 // fetch guests 
-fetch("/guests")
+fetch("https://drop1.garrepi.dev/guests")
     .then(res => res.json())
     .then(guests => {
         console.log(guests);
