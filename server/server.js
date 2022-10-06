@@ -91,7 +91,7 @@ const register = (req, res) => {
                 success: true 
             });
         })
-        .catch(error => {
+        .catch(err => {
             res.writeHead(500, {
                 "Set-Cookie": `registered=failed`,
                 "Content-Type": `text/json`,
