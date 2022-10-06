@@ -87,6 +87,7 @@ const register = (req, res) => {
         res.end(JSON.stringify({
             error: "User already registered" 
         }));
+        return;
     }
 
     const guest = {
