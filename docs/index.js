@@ -68,14 +68,14 @@ function register() {
         const p = document.createElement("p");
         const t = document.createTextNode(JSON.stringify(res.result));
         p.appendChild(t);
-        document.getElementById("input-pane").replaceChildren(...p);
+        document.getElementById("input-pane").replaceChildren(...[p]);
     })
     .catch(error => {
         console.log('error ', error);
         const p = document.createElement("p");
         const t = document.createTextNode(JSON.stringify(error));
         p.appendChild(t);
-        document.getElementById("input-pane").replaceChildren(...p);
+        document.getElementById("input-pane").replaceChildren(...[p]);
     })
     .finally(() => {
         fetch_guests();
