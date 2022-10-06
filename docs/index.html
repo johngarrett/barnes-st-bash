@@ -58,11 +58,11 @@ h2 {
             <p><a href="">Add to Calendar</a></p>
         </div>
 
-        <form action="/register" class="v-flex">
-          <input class="w-100 m1" type="text" id="fname" name="fname" placeholder="First name">
-          <input class="w-100 m1" type="text" id="lname" name="lname" placeholder="Last name">
-          <input class="w-75" type="submit" value="Register">
-        </form>
+        <div id="input-pane" class="v-flex">
+            <input class="w-100 m1" type="text" id="fname" name="fname" placeholder="First name">
+            <input class="w-100 m1" type="text" id="lname" name="lname" placeholder="Last name">
+            <input class="w-75" type="submit" value="Register" onClick="register()">
+        </div>
 
         <h2 id="guest-count" class="w-100"></h2>
         <div id="guests" class="guests-grid">

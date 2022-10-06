@@ -30,3 +30,32 @@ fetch("https://drop1.garrepi.dev/guests")
     .catch(err => {
         console.log(err);
     });
+
+function register() {
+    const fname = document.getElementById("fname").value;
+    const lname = document.getElementById("lname").value;
+    console.log(`submit called with ${fname} ${lname}`)
+    const params = new URLSearchParams({
+        fname,
+        lname
+    });
+
+    fetch(
+        "https://drop1.garrepi.dev/register?" + params,
+        {
+              method: 'POST',
+              credentials: 'include'
+        }
+    )
+    .then(res => {
+        /*
+            1. `#input-pane` remove children
+            2. add success text and calendar invite
+            3. update guests
+         */
+        console.log('succcess ', res);
+    })
+    .catch(error => {
+        console.log('error ', error);
+    });
+}

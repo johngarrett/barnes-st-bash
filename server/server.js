@@ -35,12 +35,6 @@ const requestListener = (req, res) => {
     const reqUrl = url.parse(req.url);
     console.log(reqUrl.pathname)
     switch(reqUrl.pathname) {
-        case "/":
-            index(req, res);
-            break
-        case "/index.js":
-            indexjs(req, res);
-            break
         case "/register":
             register(req, res);
             break
@@ -57,41 +51,30 @@ const requestListener = (req, res) => {
     }
 }
 
-const index = (req, res) => {
-    fs.readFile(__dirname + "/index.html")
-    .then(content => {
-        res.setHeader("Content-Type", "text/html");
-        res.writeHead(200);
-        res.end(content);
-    })
-    .catch(err => {
-        res.writeHead(500);
-        res.end(err);
-        return;
+const parseCookies = (request) => {
+    const list = {};
+    const cookieHeader = request.headers?.cookie;
+    if (!cookieHeader) return list;
+
+    cookieHeader.split(`;`).forEach(function(cookie) {
+        let [ name, ...rest] = cookie.split(`=`);
+        name = name?.trim();
+        if (!name) return;
+        const value = rest.join(`=`).trim();
+        if (!value) return;
+        list[name] = decodeURIComponent(value);
     });
+
+    return list;
 }
 
-const indexjs = (req, res) => {
-    fs.readFile(__dirname + "/index.js")
-    .then(content => {
-        res.setHeader("Content-Type", "application/javascript");
-        res.setHeader("Access-Control-Allow-Origin", "*");
-        res.writeHead(200);
-        res.end(content);
-    })
-    .catch(err => {
-        res.writeHead(500);
-        res.end(err);
-        return;
-    });
-}
 
 const register = (req, res) => {
     const reqUrl = url.parse(req.url);
-    //res.setHeader("Content-Type", "application/json");
-    res.writeHead(200);
-    res.setHeader("Access-Control-Allow-Origin", "*");
     const queries = qs.parse(reqUrl.query);
+    const cookies = parseCookies(request);
+    console.log(cookies);
+
     const guest = {
         ...queries,
         time: Date.now()
@@ -99,9 +82,23 @@ const register = (req, res) => {
 
     db.collection('guests').insertOne(guest, function (err, res) {
         if (err) {
-            console.error(err)
+            response.writeHead(500, {
+                "Set-Cookie": `registered=failed`,
+                "Content-Type": `text/json`,
+                "Access-Control-Allow-Origin": "*"
+            });
+            response.end({
+                error: err
+            });
         } else {
-            console.log(res)
+            response.writeHead(200, {
+                "Set-Cookie": `registered=true`,
+                "Content-Type": `text/json`,
+                "Access-Control-Allow-Origin": "*"
+            });
+            response.end({
+                success: true 
+            });
         }
     })
 
