@@ -1,0 +1,43 @@
+
+.h-flex {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+.v-flex {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+.w-100 {
+    width: 100%;
+}
+.w-75 {
+    width: 75%;
+}
+.m1 {
+    margin: 1%;
+}
+ul {
+    list-style: none;
+}
+p {
+    margin: 5px;
+    font-size: 1em;
+}
+h1 {
+    font-size: 2.5em;
+}
+h2 {
+    text-align: center;
+    font-size: 1.875em;
+}
+body {
+    font-size: 100%;
+}
+.guests-grid {
+    display: grid;
+    grid-template-columns: repeat( auto-fit, minmax(100px, 1fr) );
+}

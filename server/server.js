@@ -76,6 +76,7 @@ const register = (req, res) => {
     console.log(cookies);
 
     if (cookies['registered'] == "true") {
+        console.log('already registered')
         res.writeHead(500, {
             "Set-Cookie": `registered=true`,
             "Content-Type": `text/json`,
