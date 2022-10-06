@@ -80,17 +80,8 @@ const register = (req, res) => {
         time: Date.now()
     }
 
-    db.collection('guests').insertOne(guest, function (err, res) {
-        if (err) {
-            res.writeHead(500, {
-                "Set-Cookie": `registered=failed`,
-                "Content-Type": `text/json`,
-                "Access-Control-Allow-Origin": "*"
-            });
-            res.end({
-                error: err
-            });
-        } else {
+    db.collection('guests').insertOne(guest)
+        .then(response => {
             res.writeHead(200, {
                 "Set-Cookie": `registered=true`,
                 "Content-Type": `text/json`,
@@ -99,8 +90,17 @@ const register = (req, res) => {
             res.end({
                 success: true 
             });
-        }
-    });
+        })
+        .catch(error => {
+            res.writeHead(500, {
+                "Set-Cookie": `registered=failed`,
+                "Content-Type": `text/json`,
+                "Access-Control-Allow-Origin": "*"
+            });
+            res.end({
+                error: err
+            });
+        });
 }
 
 // return json of all guests on GET
