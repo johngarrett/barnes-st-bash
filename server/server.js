@@ -85,7 +85,7 @@ const register = (req, res) => {
             "Access-Control-Allow-Credentials": true 
         });
         res.end(JSON.stringify({
-            error: "User already registered" 
+            result: "User already registered" 
         }));
         return;
     }
@@ -105,7 +105,7 @@ const register = (req, res) => {
                 "Access-Control-Allow-Credentials": true 
             });
             res.end(JSON.stringify({
-                success: true 
+                result: "success" 
             }));
         })
         .catch(err => {
@@ -117,7 +117,7 @@ const register = (req, res) => {
                 "Access-Control-Allow-Credentials": true 
             });
             res.end(JSON.stringify({
-                error: err
+                result: err
             }));
         });
 }

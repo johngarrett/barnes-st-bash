@@ -1,35 +1,40 @@
+function fetch_guests() {
+    console.log('fetching guests');
+    fetch("https://drop1.garrepi.dev/guests")
+        .then(res => res.json())
+        .then(guests => {
+            console.log(guests);
+            const nodes = guests
+                .map(guest => `${guest.fname} ${guest.lname}`)
+                .map(name => {
+                    const p = document.createElement("p");
+                    const t = document.createTextNode(name);
+                    p.appendChild(t);
 
-// fetch guest count
-fetch("https://drop1.garrepi.dev/guest-count")
-    .then(res => res.json())
-    .then(count => {
-        console.log(count);
-        const guestCounter = document.getElementById("guest-count");
-        guestCounter.textContent = count + " people registered.";
-    })
-    .catch(err => {
-        console.log(err);
-    });
+                    return p;
+                });
 
-// fetch guests 
-fetch("https://drop1.garrepi.dev/guests")
-    .then(res => res.json())
-    .then(guests => {
-        console.log(guests);
-        const guestsDiv = document.getElementById("guests");
-        guests
-            .map(guest => `${guest.fname} ${guest.lname}`)
-            .forEach(name => {
-                const p = document.createElement("p");
-                const t = document.createTextNode(name);
-                p.appendChild(t);
+            document.getElementById("guests").replaceChildren(...nodes);
+        })
+        .catch(err => {
+            console.log(err);
+        });
+}
 
-                guestsDiv.appendChild(p);
-            });
-    })
-    .catch(err => {
-        console.log(err);
-    });
+function fetch_guest_count() {
+    console.log('fetching guest count');
+    fetch("https://drop1.garrepi.dev/guest-count")
+        .then(res => res.json())
+        .then(count => {
+            console.log(count);
+            const guestCounter = document.getElementById("guest-count");
+            guestCounter.textContent = count + " people registered.";
+        })
+        .catch(err => {
+            console.log(err);
+        });
+}
+
 
 function register() {
     const fname = document.getElementById("fname").value;
@@ -53,15 +58,30 @@ function register() {
                 }
         }
     )
+    .then(res => res.json())
     .then(res => {
         /*
             1. `#input-pane` remove children
             2. add success text and calendar invite
             3. update guests
          */
-        console.log('succcess ', res);
+        const p = document.createElement("p");
+        const t = document.createTextNode(JSON.stringify(res.result));
+        p.appendChild(t);
+        document.getElementById("input-pane").replaceChildren(...p);
     })
     .catch(error => {
         console.log('error ', error);
+        const p = document.createElement("p");
+        const t = document.createTextNode(JSON.stringify(error));
+        p.appendChild(t);
+        document.getElementById("input-pane").replaceChildren(...p);
+    })
+    .finally(() => {
+        fetch_guests();
+        fetch_guest_count();
     });
 }
+
+fetch_guests();
+fetch_guest_count();
