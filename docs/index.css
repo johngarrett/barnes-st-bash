@@ -4,6 +4,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
 }
 .v-flex {
     display: flex;
@@ -30,6 +31,9 @@ p {
 h1 {
     font-size: 2.5em;
     font-weight: bolder;
+    transform: scale(2,1);
+    transform-origin: left;
+    display: inline-block;
 }
 h2 {
     text-align: center;

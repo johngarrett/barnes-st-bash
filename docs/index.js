@@ -66,14 +66,14 @@ function register() {
             3. update guests
          */
         const p = document.createElement("p");
-        const t = document.createTextNode(JSON.stringify(res.result));
+        const t = document.createTextNode(res.result);
         p.appendChild(t);
         document.getElementById("input-pane").replaceChildren(...[p]);
     })
     .catch(error => {
         console.log('error ', error);
         const p = document.createElement("p");
-        const t = document.createTextNode(JSON.stringify(error));
+        const t = document.createTextNode(error);
         p.appendChild(t);
         document.getElementById("input-pane").replaceChildren(...[p]);
     })
