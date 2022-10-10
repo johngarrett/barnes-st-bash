@@ -25,9 +25,9 @@
         </div>
 
         <div id="input-pane" class="v-flex">
-            <input class="w-100 text-input" type="text" id="fname" name="fname" placeholder="First name">
-            <input class="w-100 text-input" type="text" id="lname" name="lname" placeholder="Last name">
-            <input class="w-75 button" type="submit" value="Register" onClick="register()">
+            <input class="w-100 text-input" type="text" id="fname" name="fname" onkeyup="poll_registration_status()" placeholder="First name">
+            <input class="w-100 text-input" type="text" id="lname" name="lname" onkeyup="poll_registration_status()" placeholder="Last name">
+            <input id="register-button" class="w-75 button" type="submit" value="Register" onClick="register()">
         </div>
 
         <h2 id="guest-count" class="w-100"></h2>

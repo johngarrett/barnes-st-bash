@@ -1,3 +1,16 @@
+function poll_registration_status() {
+    console.warn("poll_registration_status unimplemented");
+    const fname_input = document.getElementById("fname");
+    const lname_input = document.getElementById("lname");
+    const register_button = document.getElementById("register-button")
+    console.log(fname_input)
+    console.log(lname_input)
+
+    console.log("[poll_registration_status]: fname text content: "+ fname_input.value + "lname text content: " + lname_input.value);
+
+    register_button.disabled = fname_input.value.length == 0 || lname_input.value.length == 0;
+}
+
 function fetch_guests() {
     console.log('fetching guests');
     fetch("https://drop1.garrepi.dev/guests")
@@ -85,3 +98,4 @@ function register() {
 
 fetch_guests();
 fetch_guest_count();
+poll_registration_status();
