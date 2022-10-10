@@ -3,20 +3,14 @@ function poll_registration_status() {
     const fname_input = document.getElementById("fname");
     const lname_input = document.getElementById("lname");
     const register_button = document.getElementById("register-button")
-    console.log(fname_input)
-    console.log(lname_input)
-
-    console.log("[poll_registration_status]: fname text content: "+ fname_input.value + "lname text content: " + lname_input.value);
 
     register_button.disabled = fname_input.value.length == 0 || lname_input.value.length == 0;
 }
 
 function fetch_guests() {
-    console.log('fetching guests');
     fetch("https://drop1.garrepi.dev/guests")
         .then(res => res.json())
         .then(guests => {
-            console.log(guests);
             const nodes = guests
                 .map(guest => `${guest.fname} ${guest.lname}`)
                 .map(name => {
@@ -35,16 +29,16 @@ function fetch_guests() {
 }
 
 function fetch_guest_count() {
-    console.log('fetching guest count');
     fetch("https://drop1.garrepi.dev/guest-count")
         .then(res => res.json())
         .then(count => {
-            console.log(count);
             const guestCounter = document.getElementById("guest-count");
             guestCounter.textContent = count + " people registered";
         })
         .catch(err => {
-            console.log(err);
+            const guestCounter = document.getElementById("guest-count");
+            guestCounter.textContent = "Error fetching guest count";
+            console.log('guest count: ', error);
         });
 }
 
@@ -52,7 +46,6 @@ function fetch_guest_count() {
 function register() {
     const fname = document.getElementById("fname").value;
     const lname = document.getElementById("lname").value;
-    console.log(`submit called with ${fname} ${lname}`)
     const params = new URLSearchParams({
         fname,
         lname
