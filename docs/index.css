@@ -1,6 +1,9 @@
 :root {
-    --fake-black: #152028;
+    --fake-black: hsl(0, 0%, 5%);
     --blue: #A5C9CA;
+    --white: #afafaf;
+    --form-bg: hsl(0, 0%, 14%);
+    --form-border: hsl(0, 0%, 10%);
 }
 
 .h-flex {
@@ -52,18 +55,21 @@ body {
     margin: 2%;
 }
 .button {
-    border: none;
     text-align: center;
     font-size: 1em;
     margin: 5px;
     padding: 5px;
-    color: black;
-    background-color: white;
+    border: 1px solid var(--form-border);
+    color: var(--white);
+    background: var(--form-bg);
 }
 .text-input {
-    color: white;
-    background-color: black;
     font-size: 1.2em;
+    line-height: 1.5;
+    border: 1px solid var(--form-border);
+    color: var(--white);
+    background: var(--form-bg);
+    margin: 1px;
 }
 .guests-grid {
     display: grid;
