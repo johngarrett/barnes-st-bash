@@ -28,7 +28,7 @@ function fetch_guest_count() {
         .then(count => {
             console.log(count);
             const guestCounter = document.getElementById("guest-count");
-            guestCounter.textContent = count + " people registered.";
+            guestCounter.textContent = count + " people registered";
         })
         .catch(err => {
             console.log(err);
