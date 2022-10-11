@@ -47,6 +47,9 @@ const requestListener = (req, res) => {
         case "/track-view":
             track_view(req, res);
             break
+        case "/view-count":
+            view_count(req, res);
+            break
         default:
             res.writeHead(404);
             res.end("404");
@@ -168,7 +171,7 @@ const track_view = (req, res) => {
     const cookies = parseCookies(req);
 
     console.log(req)
-    console.log(req.socket)
+    console.log(req.socket.remoteAddress)
 
     if (cookies['viewed'] == "true") {
         res.writeHead(500, {
@@ -184,12 +187,15 @@ const track_view = (req, res) => {
         return;
     }
 
-    /*
-    // TODO: find identifable information
-    db.collection('views').insertOne(guest)
+    const view = {
+        address: req.socket.remoteAddress,
+        time: Date.now()
+    }
+
+    db.collection('views').insertOne(view)
         .then(response => {
             res.writeHead(200, {
-                "Set-Cookie": `registered=true; SameSite=None; Secure`,
+                "Set-Cookie": `viewed=true; SameSite=None; Secure`,
                 "Content-Type": `text/json`,
                 "Access-Control-Allow-Headers": "Content-Type",
                 "Access-Control-Allow-Origin": "https://garrepi.dev",
@@ -201,7 +207,7 @@ const track_view = (req, res) => {
         })
         .catch(err => {
             res.writeHead(500, {
-                "Set-Cookie": `registered=failed; SameSite=None; Secure`,
+                "Set-Cookie": `viewed=failed; SameSite=None; Secure`,
                 "Content-Type": `text/json`,
                 "Access-Control-Allow-Headers": "Content-Type",
                 "Access-Control-Allow-Origin": "https://garrepi.dev",
@@ -211,18 +217,23 @@ const track_view = (req, res) => {
                 result: err
             }));
         });
-        */
-        res.writeHead(500, {
-            "Set-Cookie": `viewed=failed; SameSite=None; Secure`,
-            "Content-Type": `text/json`,
-            "Access-Control-Allow-Headers": "Content-Type",
-            "Access-Control-Allow-Origin": "https://garrepi.dev",
-            "Access-Control-Allow-Credentials": true 
-        });
-        res.end(JSON.stringify({
-            result: "Error"
-        }));
-}
+};
+
+const view_count = (req, res) => {
+    res.setHeader("Content-Type", "text/plain; charset=UTF-8");
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    db.collection("views").count()
+    .then(count => {
+        console.log(count)
+        res.writeHead(200);
+        res.end(""+count);
+    })
+    .catch(err => {
+        console.error(err);
+        res.writeHead(500);
+        res.end("{}")
+    });
+};
 
 const startServer = () => {
         const httpServer = http.createServer(requestListener);
