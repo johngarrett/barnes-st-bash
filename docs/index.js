@@ -21,9 +21,8 @@ function track_view() {
         }
     )
     .then(res => res.json())
-    .then(res => {
-        // TODO: view counter?
-        //console.log(res);
+    .then(() => {
+        fetch_view_count();
     })
     .catch(error => {
         console.log('error tracking view', error);
@@ -66,6 +65,19 @@ function fetch_guest_count() {
         });
 }
 
+function fetch_view_count() {
+    fetch("https://drop1.garrepi.dev/view-count")
+        .then(res => res.json())
+        .then(count => {
+            const guestCounter = document.getElementById("view-count");
+            guestCounter.textContent = count + " views";
+        })
+        .catch(err => {
+            const guestCounter = document.getElementById("view-count");
+            guestCounter.textContent = "Error fetching view count";
+            console.log('view count: ', error);
+        });
+}
 
 function register() {
     const fname = document.getElementById("fname").value;
@@ -116,4 +128,5 @@ function register() {
 track_view();
 fetch_guests();
 fetch_guest_count();
+fetch_view_count();
 poll_registration_status();
