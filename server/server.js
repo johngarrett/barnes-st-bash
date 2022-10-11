@@ -170,9 +170,6 @@ const track_view = (req, res) => {
     const queries = qs.parse(reqUrl.query);
     const cookies = parseCookies(req);
 
-    console.log(req)
-    console.log(req.socket.remoteAddress)
-
     if (cookies['viewed'] == "true") {
         res.writeHead(500, {
             "Set-Cookie": `viewed=true; SameSite=None; Secure`,
