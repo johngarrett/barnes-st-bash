@@ -44,6 +44,9 @@ const requestListener = (req, res) => {
         case "/guest-count":
             guest_count(req, res);
             break
+        case "/track-view":
+            track_view(req, res);
+            break
         default:
             res.writeHead(404);
             res.end("404");
@@ -73,7 +76,6 @@ const register = (req, res) => {
     const reqUrl = url.parse(req.url);
     const queries = qs.parse(reqUrl.query);
     const cookies = parseCookies(req);
-    console.log(cookies);
 
     if (cookies['registered'] == "true") {
         console.log('already registered')
@@ -159,6 +161,65 @@ const guest_count = (req, res) => {
         res.end("{}")
     });
 };
+
+const track_view = (req, res) => {
+    const reqUrl = url.parse(req.url);
+    const queries = qs.parse(reqUrl.query);
+    const cookies = parseCookies(req);
+
+    if (cookies['viewed'] == "true") {
+        res.writeHead(500, {
+            "Set-Cookie": `viewed=true; SameSite=None; Secure`,
+            "Content-Type": `text/json`,
+            "Access-Control-Allow-Headers": "Content-Type",
+            "Access-Control-Allow-Origin": "https://garrepi.dev",
+            "Access-Control-Allow-Credentials": true 
+        });
+        res.end(JSON.stringify({
+            result: "User already accounted for" 
+        }));
+        return;
+    }
+
+    /*
+    // TODO: find identifable information
+    db.collection('views').insertOne(guest)
+        .then(response => {
+            res.writeHead(200, {
+                "Set-Cookie": `registered=true; SameSite=None; Secure`,
+                "Content-Type": `text/json`,
+                "Access-Control-Allow-Headers": "Content-Type",
+                "Access-Control-Allow-Origin": "https://garrepi.dev",
+                "Access-Control-Allow-Credentials": true 
+            });
+            res.end(JSON.stringify({
+                result: "success" 
+            }));
+        })
+        .catch(err => {
+            res.writeHead(500, {
+                "Set-Cookie": `registered=failed; SameSite=None; Secure`,
+                "Content-Type": `text/json`,
+                "Access-Control-Allow-Headers": "Content-Type",
+                "Access-Control-Allow-Origin": "https://garrepi.dev",
+                "Access-Control-Allow-Credentials": true 
+            });
+            res.end(JSON.stringify({
+                result: err
+            }));
+        });
+        */
+        res.writeHead(500, {
+            "Set-Cookie": `viewed=failed; SameSite=None; Secure`,
+            "Content-Type": `text/json`,
+            "Access-Control-Allow-Headers": "Content-Type",
+            "Access-Control-Allow-Origin": "https://garrepi.dev",
+            "Access-Control-Allow-Credentials": true 
+        });
+        res.end(JSON.stringify({
+            result: "Error"
+        }));
+}
 
 const startServer = () => {
         const httpServer = http.createServer(requestListener);

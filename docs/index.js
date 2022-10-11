@@ -7,6 +7,30 @@ function poll_registration_status() {
     register_button.disabled = fname_input.value.length == 0 || lname_input.value.length == 0;
 }
 
+function track_view() {
+    fetch(
+        "https://drop1.garrepi.dev/track-view"
+        , {
+              method: 'POST',
+              credentials: 'include',
+                headers: {
+                    Origin: "https://garrepi.dev/btsb",
+                    "Content-Type": "text/plain",
+                    "Access-Control-Request-Method": "POST",
+                    "Access-Control-Request-Headers": "Content-Type, Accept"
+                }
+        }
+    )
+    .then(res => res.json())
+    .then(res => {
+        console.log(res);
+    })
+    .catch(error => {
+        console.log('error tracking view', error);
+    })
+
+}
+
 function fetch_guests() {
     fetch("https://drop1.garrepi.dev/guests")
         .then(res => res.json())
@@ -89,6 +113,7 @@ function register() {
     });
 }
 
+track_view();
 fetch_guests();
 fetch_guest_count();
 poll_registration_status();
