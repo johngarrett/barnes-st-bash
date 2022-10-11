@@ -1,5 +1,4 @@
 function poll_registration_status() {
-    console.warn("poll_registration_status unimplemented");
     const fname_input = document.getElementById("fname");
     const lname_input = document.getElementById("lname");
     const register_button = document.getElementById("register-button")
@@ -23,7 +22,8 @@ function track_view() {
     )
     .then(res => res.json())
     .then(res => {
-        console.log(res);
+        // TODO: view counter?
+        //console.log(res);
     })
     .catch(error => {
         console.log('error tracking view', error);
