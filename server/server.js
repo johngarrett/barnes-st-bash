@@ -155,7 +155,6 @@ const guest_count = (req, res) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
     db.collection("guests").count()
     .then(count => {
-        console.log(count)
         res.writeHead(200);
         res.end(""+count);
     })
@@ -222,7 +221,6 @@ const view_count = (req, res) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
     db.collection("views").count()
     .then(count => {
-        console.log(count)
         res.writeHead(200);
         res.end(""+count);
     })
