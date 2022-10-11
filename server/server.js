@@ -33,7 +33,6 @@ MongoClient.connect(mongoUrl, function (err, client) {
 
 const requestListener = (req, res) => {
     const reqUrl = url.parse(req.url);
-    console.log(reqUrl.pathname)
     switch(reqUrl.pathname) {
         case "/register":
             register(req, res);
@@ -52,6 +51,7 @@ const requestListener = (req, res) => {
             break
         default:
             res.writeHead(404);
+            console.log(reqUrl.pathname);
             res.end("404");
             break
     }
@@ -80,8 +80,9 @@ const register = (req, res) => {
     const queries = qs.parse(reqUrl.query);
     const cookies = parseCookies(req);
 
+    console.log('registering user from: ' + req.socket.remoteAddress + ' with: ' + reqUrl.query);
     if (cookies['registered'] == "true") {
-        console.log('already registered')
+        console.log('\talready registered')
         res.writeHead(500, {
             "Set-Cookie": `registered=true; SameSite=None; Secure`,
             "Content-Type": `text/json`,
