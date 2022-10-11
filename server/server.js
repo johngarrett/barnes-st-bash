@@ -80,7 +80,7 @@ const register = (req, res) => {
     const queries = qs.parse(reqUrl.query);
     const cookies = parseCookies(req);
 
-    console.log('registering user from: ' + req.socket.remoteAddress + ' with: ' + reqUrl.query);
+    console.log(Date.now() + 'registering user from: ' + req.socket.remoteAddress + ' with: ' + reqUrl.query);
     if (cookies['registered'] == "true") {
         console.log('\talready registered')
         res.writeHead(500, {
