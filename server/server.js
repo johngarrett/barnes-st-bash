@@ -171,7 +171,7 @@ const track_view = (req, res) => {
     const cookies = parseCookies(req);
 
     if (cookies['viewed'] == "true") {
-        res.writeHead(500, {
+        res.writeHead(418, {
             "Set-Cookie": `viewed=true; SameSite=None; Secure`,
             "Content-Type": `text/json`,
             "Access-Control-Allow-Headers": "Content-Type",
