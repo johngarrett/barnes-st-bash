@@ -96,8 +96,8 @@ const register = (req, res) => {
     }
 
     if (
-        queries.fname == undefined || queries.lname == undefined ||
-        queries.fname.length == 0 || queries.lname.length = 0
+        queries["fname"] == undefined || queries["lname"] == undefined ||
+        queries["fname"]?.length == 0 || queries["lname"]?.length = 0
     ) {
         res.writeHead(500, {
             "Set-Cookie": `registered=failed; SameSite=None; Secure`,
