@@ -82,7 +82,6 @@ const register = (req, res) => {
 
     console.log(Date.now() + 'registering user from: ' + req.socket.remoteAddress + ' with: ' + reqUrl.query);
     if (cookies['registered'] == "true") {
-        console.log('\talready registered')
         res.writeHead(500, {
             "Set-Cookie": `registered=true; SameSite=None; Secure`,
             "Content-Type": `text/json`,
@@ -92,6 +91,23 @@ const register = (req, res) => {
         });
         res.end(JSON.stringify({
             result: "User already registered" 
+        }));
+        return;
+    }
+
+    if (
+        queries.fname == undefined || queries.lname == undefined ||
+        queries.fname.length == 0 || queries.lname.length = 0
+    ) {
+        res.writeHead(500, {
+            "Set-Cookie": `registered=failed; SameSite=None; Secure`,
+            "Content-Type": `text/json`,
+            "Access-Control-Allow-Headers": "Content-Type",
+            "Access-Control-Allow-Origin": "https://garrepi.dev",
+            "Access-Control-Allow-Credentials": true 
+        });
+        res.end(JSON.stringify({
+            result: "Invalid registration values" 
         }));
         return;
     }
