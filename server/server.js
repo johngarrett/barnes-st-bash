@@ -9,6 +9,16 @@ const mongoUrl = "mongodb://localhost:27017/bstb";
 var db;
 
 
+String.prototype.escape = function() {
+    var tagsToReplace = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;'
+    };
+    return this.replace(/[&<>]/g, function(tag) {
+        return tagsToReplace[tag] || tag;
+    });
+};
 
 // Certificate
 const privateKey = _fs.readFileSync('/etc/letsencrypt/live/drop1.garrepi.dev/privkey.pem', 'utf8');
@@ -113,7 +123,8 @@ const register = (req, res) => {
     }
 
     const guest = {
-        ...queries,
+        fname: queries.fname.escape(),
+        lname: queries.lname.escape(),
         time: Date.now()
     }
 
